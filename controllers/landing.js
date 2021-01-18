@@ -12,3 +12,7 @@ exports.submit_lead = function (req, res, next) {
 exports.show_leads = function (req, res, next) {
     userController.getUsers(req, res);
 }
+
+exports.show_indiLeads = function (req, res, next) {
+    userController.getOneUser(req, res);
+}

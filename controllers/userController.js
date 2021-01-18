@@ -33,7 +33,7 @@ exports.getUsers = async (req, res) => {
         const userid = await User.UserModel.find()
 
         return (
-            res.render('landing', { title: 'Express', leads: userid})
+            res.render('landing', { title: 'Express', leads: userid })
         )
         // if (!userid) {
         //     return res.status(200).send({
@@ -55,4 +55,20 @@ exports.getUsers = async (req, res) => {
     }
 }
 
-
+//function to get all users
+exports.getOneUser = async (req, res) => {
+    try {
+        const user = await User.UserModel.findById(req.params.lead_id)
+        console.log(user);
+        return (
+            res.render('lead', { lead: user })
+        )
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({
+            message: 'Error finding email',
+            errors: error,
+            status: 400
+        })
+    }
+}
