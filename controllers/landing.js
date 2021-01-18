@@ -8,3 +8,7 @@ exports.submit_lead = function (req, res, next) {
     console.log("lead email", req.body.lead_email);
     userController.postUserDetail(req, res);
 }
+
+exports.show_leads = function (req, res, next) {
+    userController.getUsers(req, res);
+}
