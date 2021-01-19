@@ -1,4 +1,4 @@
-const { models } = require("mongoose");
+//const { models } = require("mongoose");
 var Lead = require("../models/leadsModel")
 
 exports.postUserDetail = async (req, res) => {

@@ -3,10 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+let passport=require('passport')
+let session = require('express-session')
 
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 
+require('./passport_setup')(passport)
 var app = express();
 
 //setup MDB
@@ -22,6 +25,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({secret:'our new secret'}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
