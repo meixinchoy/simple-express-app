@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const leadSchema = mongoose.Schema({
     email: {
         type: String,
         //required: true,
@@ -10,4 +10,4 @@ const userSchema = mongoose.Schema({
     timestamps: true
 })
 
-exports.UserModel = mongoose.model('User', userSchema)
+exports.leadModel = mongoose.model('Leads', leadSchema)

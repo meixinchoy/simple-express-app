@@ -1,9 +1,9 @@
 const { models } = require("mongoose");
-var User = require("../models/leadsModel")
+var Lead = require("../models/leadsModel")
 
 exports.postUserDetail = async (req, res) => {
     try {
-        const user = new User.UserModel();
+        const user = new Lead.leadModel();
         user.email = req.body.lead_email;
         await user.save()
         if (!user) {
@@ -30,7 +30,7 @@ exports.postUserDetail = async (req, res) => {
 //function to get all users
 exports.getUsers = async (req, res) => {
     try {
-        const userid = await User.UserModel.find()
+        const userid = await Lead.leadModel.find()
 
         return (
             res.render('lead/leads', { title: 'Express', leads: userid })
@@ -58,7 +58,7 @@ exports.getUsers = async (req, res) => {
 //function to get one users
 exports.getOneUser = async (req, res) => {
     try {
-        const user = await User.UserModel.findById(req.params.lead_id)
+        const user = await Lead.leadModel.findById(req.params.lead_id)
 
         return (
             res.render('lead/lead', { lead: user })
@@ -76,7 +76,7 @@ exports.getOneUser = async (req, res) => {
 //function to edit one users
 exports.editUser = async (req, res) => {
     try {
-        const user = await User.UserModel.findById(req.params.lead_id)
+        const user = await Lead.leadModel.findById(req.params.lead_id)
 
         return (
             res.render('lead/edit_lead', { lead: user })
@@ -94,7 +94,7 @@ exports.editUser = async (req, res) => {
 //function to submit edited email
 exports.postEditedUser = async (req, res) => {
     try {
-        let user = await User.UserModel.findById(req.params.lead_id);
+        let user = await Lead.leadModel.findById(req.params.lead_id);
         user.email = req.body.lead_email;
 
         user.save()
@@ -113,7 +113,7 @@ exports.postEditedUser = async (req, res) => {
 //function to delete email
 exports.deleteUser = async (req, res) => {
     try {
-        let user = await User.UserModel.findById(req.params.lead_id);
+        let user = await Lead.leadModel.findById(req.params.lead_id);
 
         user.delete()
         res.redirect('/lead/leads');
@@ -131,7 +131,7 @@ exports.deleteUser = async (req, res) => {
 //function to delete email w ajax
 exports.deleteUser = async (req, res) => {
     try {
-        let user = await User.UserModel.findById(req.params.lead_id);
+        let user = await Lead.leadModel.findById(req.params.lead_id);
 
         user.delete()
         res.send({ msg: "Success" });
