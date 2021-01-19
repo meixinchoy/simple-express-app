@@ -59,7 +59,7 @@ exports.getUsers = async (req, res) => {
 exports.getOneUser = async (req, res) => {
     try {
         const user = await User.UserModel.findById(req.params.lead_id)
-        console.log(user);
+
         return (
             res.render('lead', { lead: user })
         )
@@ -77,7 +77,7 @@ exports.getOneUser = async (req, res) => {
 exports.editUser = async (req, res) => {
     try {
         const user = await User.UserModel.findById(req.params.lead_id)
-        console.log(user);
+
         return (
             res.render('lead/edit_lead', { lead: user })
         )
@@ -95,22 +95,28 @@ exports.editUser = async (req, res) => {
 exports.postEditedUser = async (req, res) => {
     try {
         let user = await User.UserModel.findById(req.params.lead_id);
-    
         user.email = req.body.lead_email;
 
         user.save()
-        console.log(user)
-        // update({ "_id:": req.params.lead_id },
-        //     { $set: { "email": req.body.lead_email } })
-
-        if (!user) {
-            return res.status(200).send({
-                status: 404,
-                message: 'No data found'
-            })
-        }
-        console.log
         res.redirect('/lead/'+req.params.lead_id);
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({
+            message: 'Unable to update data',
+            errors: error,
+            status: 400
+        })
+    }
+}
+
+//function to delete email
+exports.deleteUser = async (req, res) => {
+    try {
+        let user = await User.UserModel.findById(req.params.lead_id);
+
+        user.delete()
+        res.redirect('/leads');
 
     } catch (error) {
         console.log(error)

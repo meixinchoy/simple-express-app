@@ -24,3 +24,7 @@ exports.show_editLeads = function (req, res, next) {
 exports.submit_editedLead = function (req, res, next) {
     userController.postEditedUser(req, res);
 }
+
+exports.submit_deleteLead = function (req, res, next) {
+    userController.deleteUser(req, res);
+}
