@@ -33,7 +33,7 @@ exports.getUsers = async (req, res) => {
         const userid = await User.UserModel.find()
 
         return (
-            res.render('landing', { title: 'Express', leads: userid })
+            res.render('lead/leads', { title: 'Express', leads: userid })
         )
         // if (!userid) {
         //     return res.status(200).send({
@@ -61,7 +61,7 @@ exports.getOneUser = async (req, res) => {
         const user = await User.UserModel.findById(req.params.lead_id)
 
         return (
-            res.render('lead', { lead: user })
+            res.render('lead/lead', { lead: user })
         )
     } catch (error) {
         console.log(error)
@@ -98,7 +98,7 @@ exports.postEditedUser = async (req, res) => {
         user.email = req.body.lead_email;
 
         user.save()
-        res.redirect('/lead/'+req.params.lead_id);
+        res.redirect('/lead/' + req.params.lead_id);
 
     } catch (error) {
         console.log(error)
@@ -116,7 +116,7 @@ exports.deleteUser = async (req, res) => {
         let user = await User.UserModel.findById(req.params.lead_id);
 
         user.delete()
-        res.redirect('/leads');
+        res.redirect('/lead/leads');
 
     } catch (error) {
         console.log(error)
@@ -134,7 +134,7 @@ exports.deleteUser = async (req, res) => {
         let user = await User.UserModel.findById(req.params.lead_id);
 
         user.delete()
-        res.send({msg: "Success"});
+        res.send({ msg: "Success" });
 
     } catch (error) {
         console.log(error)
