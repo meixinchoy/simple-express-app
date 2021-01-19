@@ -1,5 +1,5 @@
-extends layout
-
-block content   
+C  
     h1 Lead
-    p #{lead.email}
+    p 
+        span #{lead.email}
+        a(href="/lead/"+lead.id+"/edit") Edit
