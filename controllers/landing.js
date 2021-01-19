@@ -28,3 +28,7 @@ exports.submit_editedLead = function (req, res, next) {
 exports.submit_deleteLead = function (req, res, next) {
     userController.deleteUser(req, res);
 }
+
+exports.submit_deleteLeadJson = function (req, res, next) {
+    userController.deleteUser(req, res);
+}

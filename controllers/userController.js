@@ -127,3 +127,21 @@ exports.deleteUser = async (req, res) => {
         })
     }
 }
+
+//function to delete email w ajax
+exports.deleteUser = async (req, res) => {
+    try {
+        let user = await User.UserModel.findById(req.params.lead_id);
+
+        user.delete()
+        res.send({msg: "Success"});
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({
+            message: 'Unable to update data',
+            errors: error,
+            status: 400
+        })
+    }
+}

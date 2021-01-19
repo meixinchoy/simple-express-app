@@ -11,5 +11,6 @@ router.get('/lead/:lead_id', landing.show_indiLeads);
 router.get('/lead/:lead_id/edit', landing.show_editLeads);
 router.post('/lead/:lead_id/edit', landing.submit_editedLead);
 router.post('/lead/:lead_id/delete', landing.submit_deleteLead);
-
+router.post('/lead/:lead_id/delete-json', landing.submit_deleteLeadJson); //ajax
+ 
 module.exports = router;
