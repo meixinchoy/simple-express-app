@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let passport=require('passport')
 let session = require('express-session')
+let flash = require('connect-flash')
 
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
@@ -20,6 +21,7 @@ dbConfig.connectDB();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(flash())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

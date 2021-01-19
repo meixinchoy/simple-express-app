@@ -34,7 +34,9 @@ module.exports = function (passport) {
     },
         function (req, email, password, done) {
             try {
-                const user = Lead.leadModel.findOne({email:email})
+                //const lead = new Lead.leadModel();
+                const user = Lead.leadModel.find({ email: email })
+
                 if (user == null) {
                     req.flash('message', 'Incorrect credentials.')
                     return done(null, false)
@@ -46,7 +48,7 @@ module.exports = function (passport) {
                     return done(null, false)
                 }
                 return done(null, user);
-            }catch(err){
+            } catch (err) {
                 done(err, false);
             }
         }))
