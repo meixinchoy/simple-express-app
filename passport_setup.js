@@ -1,5 +1,5 @@
 let LocalStrategy = require('passport-local').Strategy;
-var Lead = require("./models/leadsModel")
+var User = require("./models/userModel")
 
 let bcrypt = require('bcrypt');
 
@@ -11,33 +11,28 @@ const validPassword = function (user, password) {
 
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
-        done(null, user.id)
+        done(null, user._id)
     });
-    passport.deserializeUser(function (id, done) {
-        try {
-            const user = Lead.leadModel.findById(id)
-
-            done(null, user)
-        } catch (error) {
-            console.log(error)
-            return res.status(400).send({
-                message: 'Error finding email',
-                errors: error,
-                status: 400
-            })
-        }
+    passport.deserializeUser(function (_id, done) {
+        User.UserModel.findById(_id, (err,user)=>{
+            if(err){
+                done(null,false,{error:err});
+            }else{
+                done(null,user)
+            }
+        })
     });
-    passport.use(new LocalStrategy({
+    passport.use('local',new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
     },
         function (req, email, password, done) {
-            try {
-                //const lead = new Lead.leadModel();
-                const user = Lead.leadModel.find({ email: email })
-
-                if (user == null) {
+            User.UserModel.findOne({
+                'email': email
+            }, function (err, user) {
+                if (err) return done(err);
+                if (user.email == null) {
                     req.flash('message', 'Incorrect credentials.')
                     return done(null, false)
                 } else if (user.password == null || user.password == undefined) {
@@ -48,8 +43,6 @@ module.exports = function (passport) {
                     return done(null, false)
                 }
                 return done(null, user);
-            } catch (err) {
-                done(err, false);
-            }
-        }))
+            });
+        }));
 }

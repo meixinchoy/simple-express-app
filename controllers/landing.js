@@ -1,7 +1,8 @@
 var userController = require("./userController")
 
 exports.get_landing = function (req, res, next) {
-    res.render('landing', { title: 'Express' });
+    console.log("user", req.user);
+    res.render('landing', { title: 'Express', user: req.user });
 }
 
 exports.submit_lead = function (req, res, next) {
