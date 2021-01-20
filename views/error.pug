@@ -3,8 +3,10 @@ html(lang='en')
   include common/head.pug
   +head("Landing")
   body
-    h1= message
-    h2= error.status
-    pre #{error.stack}
-    include common/footer.pug
-    +footer()
+    header
+      .container
+        .row
+          .col-md-12
+            h1= message
+            h2.text-danger= error.status
+            pre.text-danger #{error.stack}
