@@ -32,17 +32,19 @@ module.exports = function (passport) {
                 'email': email
             }, function (err, user) {
                 if (err) return done(err);
-                if (user.email == null) {
-                    req.flash('message', 'Incorrect credentials.')
-                    return done(null, false)
-                } else if (user.password == null || user.password == undefined) {
-                    req.flash('message', 'You must reset your password')
-                    return done(null, false)
-                } else if (!validPassword(user, password)) {
-                    req.flash('message', 'Incorrect credentials')
-                    return done(null, false)
+                
+                try {
+                    if (user === null || user.email === null || !validPassword(user, password)) {
+                        req.flash('message', 'Incorrect credentials.')
+                        return done(null, false) 
+                    } else if (user.password === null || user.password === undefined) {
+                        req.flash('message', 'You must reset your password')
+                        return done(null, false)
+                    }
+                    return done(null, user);
+                } catch (error) {
+                    return done(null, false, req.flash('message', 'Incorrect credentials.'))
                 }
-                return done(null, user);
             });
         }));
 }
