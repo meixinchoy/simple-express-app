@@ -1,9 +1,13 @@
+//setup MDB
+var dbConfig = require('./config/db.js');
+dbConfig.connectDB();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let passport=require('passport');
+let passport = require('passport');
 let session = require('express-session');
 let flash = require('connect-flash');
 
@@ -13,10 +17,6 @@ var usersRouter = require('./routes/users');
 require('./passport_setup')(passport);
 
 var app = express();
-
-//setup MDB
-var dbConfig = require('./config/db.js');
-dbConfig.connectDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,9 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'our new secret', 
+  secret: 'our new secret',
   resave: true,
-  saveUninitialized: true}))
+  saveUninitialized: true
+}))
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())

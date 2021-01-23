@@ -1,12 +1,10 @@
 var userController = require("./userController")
 
 exports.get_landing = function (req, res, next) {
-    console.log("user", req.user);
     res.render('landing', { title: 'Express', user: req.user });
 }
 
 exports.submit_lead = function (req, res, next) {
-    console.log("lead email", req.body.lead_email);
     userController.postUserDetail(req, res);
 }
 
