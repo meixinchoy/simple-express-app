@@ -21,6 +21,6 @@ router.get('/lead/:lead_id', isLoggedIn,landing.show_indiLeads);
 router.get('/lead/:lead_id/edit', isLoggedIn,landing.show_editLeads);
 router.post('/lead/:lead_id/edit', isLoggedIn,landing.submit_editedLead);
 router.post('/lead/:lead_id/delete', isLoggedIn,landing.submit_deleteLead);
-router.post('/lead/:lead_id/delete-json', isLoggedIn,landing.submit_deleteLeadJson); //ajax
+router.post('/lead/:lead_id/delete-json',landing.submit_deleteLeadJson); //ajax
  
 module.exports = router;
