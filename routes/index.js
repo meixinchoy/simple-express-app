@@ -3,7 +3,10 @@ var router = express.Router();
 
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
+let img = require('../controllers/img')
 
+const store = require('../middleware/multer')
+let { uploads } = require('../middleware/saveimg')
 let { isLoggedIn } = require('../middleware/hasAuth.js')
 
 router.get('/login', user.show_login);
@@ -22,5 +25,9 @@ router.get('/lead/:lead_id/edit', isLoggedIn,landing.show_editLeads);
 router.post('/lead/:lead_id/edit', isLoggedIn,landing.submit_editedLead);
 router.post('/lead/:lead_id/delete', isLoggedIn,landing.submit_deleteLead);
 router.post('/lead/:lead_id/delete-json',landing.submit_deleteLeadJson); //ajax
+
+/* Image */
+router.get("/deletedbimg/:id", img.delete)
+router.post('/uploadmultiplepics', store.array('images', 12), uploads, img.uploadimg)
  
 module.exports = router;

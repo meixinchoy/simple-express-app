@@ -16,6 +16,28 @@ html(lang='en')
             form(action="/", method="POST")
               input(name="lead_email", type="email", placeholder="Enter your email address")
               button(type="submit") Submit
+            form(action='/uploadmultiplepics' enctype='multipart/form-data' method='POST')
+              .row
+                br
+                .col-8
+                input#formFile.form-control(type='file' name='images' multiple='')
+                .col-2
+                input.btn.btn-warning(type='submit' value='Upload Images')
+            br
+            h5 show img on change using jquery
+            script(src="/javascripts/showimg.js")
+            div.preview-images
+            br
+            h5 show img from db
+            if(images)
+              for image in images
+                a(href="/deletedbimg/"+image._id)
+                    img(src="data:image/"+image.contentType+";base64,\ "+image.imageBase64, style="height:5rem")
+
+
+            
+            //-link(rel="stylesheet" href="/stylesheets/imgstyle.css")
+            
     include common/footer.pug
     +footer()
 

@@ -1,7 +1,9 @@
 var userController = require("./userController")
+var UploadModel = require("../models/imageModel")
 
-exports.get_landing = function (req, res, next) {
-    res.render('landing', { title: 'Express', user: req.user });
+exports.get_landing = async function (req, res, next) {
+    const all_images = await UploadModel.find()
+    res.render('landing', { title: 'Express', user: req.user, images: all_images });
 }
 
 exports.submit_lead = function (req, res, next) {
