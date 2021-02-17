@@ -7,4 +7,4 @@ favorite features:
 - Login authentication utilizing passport's local authentication, sessions, flash and validators
 - database CRUD at the backstage
 - image CRUD with multer package
-- display individual leads at /products/:id
+- display individual leads at /lead/:lead_id
